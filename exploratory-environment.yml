@@ -1,0 +1,9 @@
+name: thesis-exploratory
+dependencies:
+ - python=3.8
+ - jupyterlab>=3
+ - jpywidgets>=7.6
+ - plotly==5.3.1
+ - jupyter-dash
+ - opencv
+ - scikit-image
