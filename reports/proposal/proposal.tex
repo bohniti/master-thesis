@@ -1,0 +1,76 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{german}
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage{xspace}
+\usepackage{microtype}
+%\usepackage{doublespace}
+%------------------------------------------------------------------------------
+%\setstretch{1.0}
+\voffset-5mm
+\hoffset-5mm
+\textwidth17cm
+\textheight24cm
+\headsep0mm
+\headheight0mm
+\oddsidemargin0.3mm
+\pagestyle{empty}
+\parindent0mm
+\parskip1ex
+%------------------------------------------------------------------------------
+%==============================================================================
+
+\providecommand{\etal}[1]{#1\emph{~et~al.\xspace}}
+\renewcommand\refname{References}
+
+\begin{document}
+
+
+
+\begin{center}
+	Master's Thesis at the Pattern Recognition Lab, FAU Erlangen-Nuremberg \hfill \\[5mm]
+																				
+	\mbox{}\\
+	{\Large Learning Encodings using Deep Neural Networks with Generalized Max Pooling Layers}
+			
+\end{center}
+%Body
+
+
+State-of-the-art systems for writer recognition use the activation features of deep convolutional neural networks (CNN) to compute local image descriptors~\cite{Christlein2017Unsupervised,Christlein2017Encoding}. Subsequently, a global image descriptor, i.e. a single-vector image-level representation, is computed by encoding the obtained CNN activation features. The standard approach to computing a global descriptor of an image given a set of local descriptors consists of two steps: In the \emph{embedding step} an embedding function maps each local descriptor into a high-dimensional space. During the \emph{aggregation step} an aggregation function, e.g. sum pooling or max pooling, computes a single vector from the embedded feature vectors.  The global image descriptors are used to compute the similarity score between two images. 
+
+However, the aggregated descriptors can suffer from interference of unrelated descriptors that influence the similarity, even if they have low individual similarity~\cite{murray2017interferences}. The issue of interference is exacerbated in the presence of bursty descriptors, that means very similar frequent descriptors that together form a mode in descriptor space and therefore dominate the similarity metric. Murray and Perronnin~\cite{murray2014generalized} propose a generalized form of max pooling to address this issue by reducing the influence of bursty descriptors on the global descriptor.
+		
+		
+In this work, generalized max pooling is incorporated as a layer into a deep neural network architecture, allowing for end-to-end training of the network for writer recognition. 
+		
+The thesis consists of the following milestones:
+\begin{itemize}
+	\item Incorporating generalized max pooling~\cite{murray2017interferences,murray2014generalized} into a neural network.
+	      	      	      	      	      	      	      		      		      	      	      	      	      	      	      	      	      	      	
+	\item Evaluating performance on the ICDAR17	competition dataset on historical	document writer identification~\cite{ICDAR2017WI}.
+	      	      	      	      	      	      	      		      		      	      	      	      	      	      	      	      	      	      
+	\item Comparison with other pooling techniques.
+	      	      	      	      	      	      	      		      		      	      	      	      	      	      	      	      	      	      	
+	\item Further experiments regarding learning procedure and network architecure.
+	      	      	      	      	      	      	      		      		      	      	      	      	      	      	      	      	      	      
+\end{itemize}
+		
+		
+The implementation should be done in Python / C++.\\
+		
+\begin{tabular}{ll}
+	\emph{Supervisors:} & Dr.-Ing.~V.~Christlein,  Prof.~Dr.-Ing.~habil.~A.~Maier 
+	\\
+	\emph{Student:}     & Lukas Spranger                                            
+	\\
+	\emph{Start:}       & June 1st, 2018                                            \\
+	\emph{End:}         & December 1st, 2018                                        \\
+\end{tabular}
+\nopagebreak[4]
+\small
+\bibliographystyle{unsrt}       %TODO change bibliographystyle
+\bibliography{proposal}
+		
+\end{document}
+%==============================================================================
