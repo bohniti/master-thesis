@@ -31,28 +31,31 @@
 	Master's Thesis at the Pattern Recognition Lab, FAU Erlangen-Nuremberg \hfill \\[5mm]
 																				
 	\mbox{}\\
-	{\Large Learning Encodings using Deep Neural Networks with Generalized Max Pooling Layers}
+	{\Large Determining the Influence of Papyrus Characteristics and Data Argumentation on Fragments Retrieval with Deep Metric Learning}
 			
 \end{center}
 %Body
 
 
-State-of-the-art systems for writer recognition use the activation features of deep convolutional neural networks (CNN) to compute local image descriptors~\cite{Christlein2017Unsupervised,Christlein2017Encoding}. Subsequently, a global image descriptor, i.e. a single-vector image-level representation, is computed by encoding the obtained CNN activation features. The standard approach to computing a global descriptor of an image given a set of local descriptors consists of two steps: In the \emph{embedding step} an embedding function maps each local descriptor into a high-dimensional space. During the \emph{aggregation step} an aggregation function, e.g. sum pooling or max pooling, computes a single vector from the embedded feature vectors.  The global image descriptors are used to compute the similarity score between two images. 
+State-of-the-art end-to-end systems for ancient papyrus fragments retrieval use self-supervised deep metric learning (DML) \cite{Pirrone21}. More precisely, deep learning is used to pre-sort ancient papyri fragments that need to be reconstructed prior to their analysis by papyrologists. 
+\\
+\\
+Deep learning has revolutionized the performance of papyrus fragments retrieval, but the approach is limited because it demands sufficient labeled data for training. In the low-data regime, parameters are under-determined, and learned networks generalize poorly \cite{Antoniou18}. Data Augmentation mitigates this by using existing data more effectively. However, standard data augmentation produces only limited plausible alternative data. Given the potential to generate a much broader set of augmentations, we train a generative adversarial-based model to do data augmentation \cite{Tensmeyer20, Antoniou18}. 
+\\
+\\
+Furthermore, the characteristics of papyrus fragments have not been dealt with in-depth \cite{Tensmeyer20}. That means research has tended to focus on fragments retrieval with all characteristics rather than a subset of characteristics. With this in mind, we try to analyze the influence of foreground (text) and background characteristics (papyrus-fibers) on fragments retrieval.
+\\
+\\
+The thesis consists of the following milestones: 
 
-However, the aggregated descriptors can suffer from interference of unrelated descriptors that influence the similarity, even if they have low individual similarity~\cite{murray2017interferences}. The issue of interference is exacerbated in the presence of bursty descriptors, that means very similar frequent descriptors that together form a mode in descriptor space and therefore dominate the similarity metric. Murray and Perronnin~\cite{murray2014generalized} propose a generalized form of max pooling to address this issue by reducing the influence of bursty descriptors on the global descriptor.
-		
-		
-In this work, generalized max pooling is incorporated as a layer into a deep neural network architecture, allowing for end-to-end training of the network for writer recognition. 
-		
-The thesis consists of the following milestones:
 \begin{itemize}
-	\item Incorporating generalized max pooling~\cite{murray2017interferences,murray2014generalized} into a neural network.
+	\item Incorporating thresholding \cite{Tensmeyer20, Pratikakis19} and impainting \cite{Liu18Impainting} into the training pipeline of a DML model \cite{Musgrave20}.
 	      	      	      	      	      	      	      		      		      	      	      	      	      	      	      	      	      	      	
-	\item Evaluating performance on the ICDAR17	competition dataset on historical	document writer identification~\cite{ICDAR2017WI}.
+	\item Use the preprocessed data to create a large dataset suitable for DML network throughout a GAN-based method \cite{Antoniou18}.
 	      	      	      	      	      	      	      		      		      	      	      	      	      	      	      	      	      	      
-	\item Comparison with other pooling techniques.
+	\item Evaluate the performance of the thresholding and impainting techniques on the Michigan dataset \cite{Pirrone21} and the large dataset created by the GAN.
 	      	      	      	      	      	      	      		      		      	      	      	      	      	      	      	      	      	      	
-	\item Further experiments regarding learning procedure and network architecure.
+	\item Further experiments regarding fragment matching via papyri-fibers.
 	      	      	      	      	      	      	      		      		      	      	      	      	      	      	      	      	      	      
 \end{itemize}
 		
@@ -69,7 +72,7 @@ The implementation will be done in Python.\\
 \end{tabular}
 \nopagebreak[4]
 \small
-\bibliographystyle{unsrt}       %TODO change bibliographystyle
+\bibliographystyle{IEEEtran}       %TODO change bibliographystyle
 \bibliography{proposal}
 		
 \end{document}
