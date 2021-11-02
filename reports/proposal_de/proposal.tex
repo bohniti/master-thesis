@@ -56,28 +56,18 @@ Allerdings muss eine Puzzlehilfe Funktion dabei mehre Bedingungen erfüllen.
 \\\\
 Zum einen darf das Erstellen einer solchen Funktion keine großen Datenmengen an zusammengesetzten Payri Fragmenten voraussetzen, denn es existieren weltweit nur wenige solcher Daten. Deep Metric Lerarning (DML) wurde bisher verwendet, um eine Puzzlehilfe-Funktion zu erstellen und erzielt dabei einen top-1 Genauigkeitsgrad von 0.73. Der Top-1 Genauigkeitsgrad ist die Treffergenauigkeit Puzzlehilfe-Funktion, wobei jeweils nur der Kandidat mit der höchsten Wahrscheinlichkeit berücksichtigt wird. 
 Wenn man das DML weiter verfeinern möchte, um eine sehr gute Genauigkeit zu erreichen, werden immens viele Daten benötigt. Andernfalls würde das Model sehr wahrscheinlich nicht konvergieren. Wenn die Fragmente händisch zusammensetzen werden, um somit einen großen Datensatz zu erhalten, wird der Zweck der Puzzlehilfe Funktion obsolet.
-Der Zeitaufwand für den Papyrologen bleibt im besten Fall derselbe oder wird im schlechtesten Fall erhöht. Generative-Advesarial-Networks (GANs) sind eine gut erforschte Möglichkeit, domänenübergreifend mehr künstliche Daten zu erzeugen. %TODO: Satz passt noch nicht ganz
-Es wurde gezeigt, dass die Genauigkeit über verschiedene Anwendungsbereiche hinweg dadurch signifikant erhöht werden kann. In der Arbeit soll ebenfalls ein GAN verwendet werden, um die das Problem der zu wenigen Daten zu umgehen. 
+Der Zeitaufwand für den Papyrologen bleibt im besten Fall derselbe oder wird im schlechtesten Fall erhöht. Generative-Advesarial-Networks (GANs) sind eine Möglichkeit, mehr künstliche Daten zu erzeugen.  Die Methode ist gut erforscht und funktioniert über verschiedene Domänen hinweg. Es wurde gezeigt, dass die Genauigkeit über verschiedene Anwendungsbereiche hinweg dadurch signifikant erhöht werden kann. In der Arbeit soll ebenfalls ein GAN verwendet werden, um die das Problem der zu wenigen Daten zu umgehen. 
 \\\\
-Eine andere Bedingung ist, dass die falsch-negativen Treffer möglichst gering sind. % TODO: das es wenige falsch-negative Treffer gibt
-In der Vorauswahl der Puzzlehilfe Funktion sollen also %TODO also streichen
-möglichst alle potenziell passenden Fragmente enthalten sein. Ist das passende Fragment nicht in der Teilmenge enthalten, hat der Papyrologe keine Chance, das richtige Fragment zu identifizieren. Es sei denn er weitet seine Suche wieder auf den gesamten Datensatz aus, was %TODO was streichen ,somit wäre die ... obsolet
-die Puzzlehilfe Funktion wieder obsolet werden lässt. 
-Eine weiterer Nachteil ist, dass er möglicherweise extrem lange nach dem passenden Fragment sucht, welches aber nicht zu finden ist. 
-Zielführende Metriken, um diese Eigenschaft zu Messen und ein Gesamtbild über das Model zu gewinnen, sind die mAP, top-1, pr@10, pr@100. %TODO keinen schachtelsatz
-Im Folgenden wird vereinfacht nur über Genauigkeit gesprochen. Diese Genauigkeit hängt stark davon ab, welcher Bildausschnitt als Eingabe verwendet wird. Genauer, was dem Model beim Trainieren als gleich und ungleich suggeriert wird, determiniert die Genauigkeit des Modells. TODO: Satz klingt umgangsprachl.
-In dieser Arbeit soll statistisch untersuchen, %TODO sol statistisch untersucht werden
-wie bestimmte Papyruscharakteristiken die Genauigkeit eines solchen Models beeinflussen. Hierfür wird die Genauigkeit verschiedener Modelle verglichen, indem nur der Vordergrund eines Papyrus (Text) oder der Hintergrund (Fasern) als Eingabe zum trainieren verwendet wird. %TODO werden
-Das separieren %TODO Separieren groß
-von Text und Phasern ist ebenfalls eine Herausforderung, weil der Untergrund auf dem das Papyrus liegt oft die ähnliche Farben hat wie die Schrift auf dem Papyrus selbst. 
+Eine andere Bedingung ist, das wenig falsch-negative gibt.
+In der Vorauswahl der Puzzlehilfe Funktion sollen möglichst alle potenziell passenden Fragmente enthalten sein. Ist das passende Fragment nicht in der Teilmenge enthalten, hat der Papyrologe keine Chance, das richtige Fragment zu identifizieren. Es sei denn er weitet seine Suche wieder auf den gesamten Datensatz aus. Somit wäre die Puzzlehilfe Funktion wieder obsolet. Eine weiterer Nachteil ist, dass er möglicherweise extrem lange nach dem passenden Fragment sucht, welches aber nicht zu finden ist. 
+Hierfür verwendete Metriken sind die mAP, top-1, pr@10, pr@100. Diese Metriken zeigen einerseits wie genau das Model im allgemeinen ist und wie präzise das Modell innerhalb eines bestimmten Bereichs ist. Im Folgenden wird vereinfacht nur über Genauigkeit gesprochen. Diese Genauigkeit hängt stark davon ab, welcher Bildausschnitt als Eingabe verwendet wird. Genauer, was dem Model beim Trainieren als gleich und ungleich suggeriert wird, determiniert die Genauigkeit des Modells. TODO: Satz klingt umgangsprachl.
+In dieser Arbeit soll statistisch untersucht werden, wie bestimmte Papyruscharakteristiken die Genauigkeit eines solchen Models beeinflussen. Hierfür wird die Genauigkeit verschiedener Modelle verglichen, indem nur der Vordergrund eines Papyrus (Text) oder der Hintergrund (Fasern) als Eingabe zum trainieren verwendet werden. 
+Das Separieren von Text und Phasern ist ebenfalls eine Herausforderung, weil der Untergrund auf dem das Papyrus liegt oft die ähnliche Farben hat wie die Schrift auf dem Papyrus selbst. 
 Wir verwenden verschiedene Methoden und evaluieren diese an der Gesamtgenauigkeit. Eine separierte Evaluierung wäre ohne eine Pixel genaue Ground Truth nicht möglich. Außerdem liegt der Fokus dieser Arbeit auf dem Einfluss der Charakteristiken auf die Genauigkeit und nicht auf dem Separieren selbst. Für die Texterkennung verwenden wird ein Method verwendet die auf einem Threshold basiert (Binarization), welcher den Text herauslöst und eine Text-Maske generiert. TODO Satzbau verwenden wird..
 Die herausgelösten Stellen können nun mittels eines Inpainting-Verfahrens und der generierten Maske aufgefüllt werden. Auch das Inpainting-Verfahren wird nur anhand der Gesamtgenauigkeit evaluiert.
 \\\\
-Zuletzt wird untersucht, ob bestimmte Charakteristiken (z.B. Fasern) noch auf andere weise %TODO Weise groß
-verwendet werden können. Zum Beispiel, um den Papyrologen zu helfen, nicht nur potenzielle Kandidaten zu identifizieren, sondern auch deren genaue Position zu bestimmten. %TODO Satz zu verschachtelt
-Dies wäre der logische Schritt hin zu einer vollautomatisierten Funktion. Das finale Ziel %finale Ziel ist etwas doppelt gemoppelt
-ist es, durch die Kombination des DML-Modells und einer geeigneten Methode zur Positionsbestimmung, eine Puzzlelöser-Funktion zu entwerfen.
-
+Zuletzt wird untersucht, ob bestimmte Charakteristiken (Fasern) noch auf andere Weise verwendet werden können. Spezifisch wird untersucht ob durch die Fasern zusätzlich zu potenziellen Kandidaten auch die genaue Position der Fragmente zueinander bestimmt werden kann.
+Dies wäre der logische Schritt hin zu einer vollautomatisierten Funktion. Das finale Ziel ist es, durch die Kombination des DML-Modells und einer geeigneten Methode zur Positionsbestimmung, eine Puzzlelöser-Funktion zu entwerfen.
 
 Zusammenfassend gliedert sich die Arbeit in folgende Meilensteine:
 
