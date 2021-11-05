@@ -11,3 +11,4 @@ dependencies:
  - jupyter-dash
  - opencv
  - scikit-image
+ - scikit-learn
