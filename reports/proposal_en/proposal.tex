@@ -32,62 +32,46 @@
 
 
 \begin{document}
-
-
-
 \begin{center}
-	Master's Thesis at the Pattern Recognition Lab, FAU Erlangen-Nuremberg \hfill \\[5mm]
-																				
+	Master's Thesis at the Pattern Recognition Lab, FAU Erlangen-Nuremberg 
+																		
 	\mbox{}\\
 	%TODO maybe matching instead of retrive 
-	{\Large Determining the Influence of Papyrus Characteristics and Data Augmentation on Fragments Retrieval with Deep Metric Learning}
-			
+	{\Large Determining the Influence of Papyrus Characteristics and Data Augmentation on Fragments Retrieval with Deep Metric Learning}			
 \end{center}
-%Body
-
-
-In practice, ancient papyri are torn into several fragments and the task of papyrologists is to assemble and decipher these fragments. Once successfully reconstructed, ancient papyrus is an important historical document. It offers the opportunity to gather crucial information about ancient cultures.
-However, reassembling by hand is very time-consuming and challenging because fragments differ in color, structure, and shape. In other words, they do not fit together perfectly - like an artificially designed toy puzzle. 
+In practice, ancient papyri are frequently torn into several fragments, and the task of papyrologists is to assemble and decipher these fragments. Once successfully reconstructed, ancient papyrus offers the opportunity to gather crucial information about past times. However, reassembling by hand is time-consuming because fragments differ in color, structure, and shape. In other words, they do not fit together perfectly - like an artificially designed toy puzzle. 
 \\\\
-The objective of this thesis is to make the work of papyrologists easier by partially automating the process of reassembling. To this end, an algorithm is designed that infers a smaller sub-selection of fragments with a high likelihood of being a good fit given one particular fragment as input. 
-In the following, this algorithm is called a puzzle-helper. Its purpose is to increase the effectiveness and efficiency of the reassembling task.  Nevertheless, in a real-world scenario, a puzzle-helper must fulfill several constraints.
+The objective of this thesis is to make the work of papyrologists easier and increase their efficiency by partially automating the reassembling process. To this end, an algorithm is designed to infer a smaller sub-selection of fragments with a high likelihood of being a potential fit. In the following, this algorithm is called puzzle-helper.
 \\\\
-First, training such a helper can not take advantage of a big data set of fragmented and reassembled (labeled) papyri, because only a tiny bit of such data exists. So far, Deep Metric Learning (DML) has been used to create puzzle helpers, achieving a top-1 accuracy (top-1) of 0.73 \cite{Ostertag21, Pirrone21}. The metric stands for the percentage of correct classified candidates among the single most likely candidate. Unfortunately, further improvement of DML models require an immense amount of data, otherwise the model will probably not converge. If fragments are reassembled manually to get an additional data, the purpose of such a puzzle-helper becomes obsolete because the total time required by a papyrologist increases. Therefore, the task of creating labeled data has to be automated. In literature and research there are many different possibilities and approaches to the problem \cite{Goodfellow14}. In the following, two possible techniques will be presented:
+In a real-world scenario, a puzzle-helper must fulfill several constraints. First, training such a helper cannot take advantage of a big data set of fragmented and reassembled (labeled) papyri because only a tiny bit of such data exists. Deep Metric Learning (DML) has been used successfully to create puzzle helpers, \cite{Ostertag21, Pirrone21}. Further improvement of DML models requires an immense amount of data. Otherwise, the model will probably not converge. Labeling manually makes the puzzle-helper useless because the total time required by a papyrologist increases. Therefore, the task of creating labeled data has to be automated. In this thesis, two possibilities will be used to alleviate problems that are arising within the low-data regime: 
 \begin{enumerate}
-	\item Generative-Adversarial-Networks \cite{Goodfellow14} (GANs) are a well-known possibility to generate more artificial data and thereby improve the overall performance in different domains \cite{Tamrin21}.
-	\item Creating a extensive data set while automatically and artificially torn papyri into several pieces is plausible as well \cite{Seuret21}. More fragments lead to a significant increase in overall model performance \cite{Pirrone21, Ostertag21}.  
+	\item Generative-Adversarial-Networks (GANs) are a possibility to generate more artificial data and thereby improve the overall performance in different domains \cite{Tamrin21}.
+	\item Creating an extensive data set by automatically and artificially tearing papyri into several pieces is plausible as well \cite{Seuret21}. More fragments lead to a significant increase in overall model performance \cite{Pirrone21, Ostertag21}.
 \end{enumerate}
-
-Both possibilities will be used during this thesis to alleviate problems which are arising within the low-data regime. 
+Another constraint is, of course, that the ground truth fragment has to be included in the subset of potential candidates. If the ground truth match is not enclosed, a papyrologist has no chance to identify the correct fragment unless he extends his search again to the entire data set. Another disadvantage is that the approach fails silently. The papyrologist might search long for a match if the expert is convinced that the algorithm works fine. Separating foreground and background is challenging because a fiber often has similar colors as the text. Therefore, several methods will be used and evaluated on the puzzle-helper accuracy. A separate evaluation is not straightforward and is misleading because we do not have pixel-wise ground truth \cite{Tensmeyer20}. Also, the focus of this thesis lies on the influence of specific characteristics and the power of more labeled data available instead of the separating process itself.
 \\\\
-Another constraint is to keep the number of false-negatives low. If the puzzle-helper selects a subset of potential candidates, all potentially matching fragments shall be included . If the perfect match is not enclosed in the subset, a papyrologist has no chance to identify the correct fragment unless he extends his search again to the entire data set. Thus the puzzle-helper is obsolete again. Another disadvantage is that the approach fails silently. The papyrologist might search long for a match because the expert is convinced that the algorithm works fine. However, if the ground truth match is not among the candidates of this subset, the search is senseless. Metrics that measure the accuracy in a helpful manner are the mean average precision (mAP), top-1, precision at 10 (pr@10) and at 100 (pr@100).
-The proposed metrics show how accurate the model is in general and how precise the model is within a particular range of potential candidates. In the next paragraphs, the different matrices are summarized as accuracy, for the sake of simplicity. The success of a model depends strongly on which part of the image is used for training the puzzle helper. More precisely, what is suggested to the model during training as equal and unequal determines the model's accuracy \cite{Pirrone21}. In this work, we will statistically measure how specific papyrus characteristics determine the accuracy of a DML model. For this purpose, various metrics of different models are compared by using only the foreground of a papyrus (text) or the background (fibers) as input for training. 
-
-Separating foreground and background is challenging because a fiber often has similar colors as the text. That circumstance makes thresholding more complicated. Several methods will be used and get evaluated on the overall accuracy. A separate evaluation is not straightforward and is misleading because we do not have pixel-wise ground truth \cite{Tensmeyer20}. Also, the focus of this thesis lies on the influence of specific characteristics and the power of more labeled data available instead of the separating process itself. For cutting out the text,  a method based on a color threshold will be used (binarization), which separates the text and generates a text mask. 
-The extracted areas can now be filled using an inpainting \cite{Ballester00} approach. The inpainting procedure is also just evaluated based on overall accuracy. 
-\\\\
-Finally, further experiments will examine whether specific characteristics (fibers) can be exploited in some way. Specifically, it will be tested if the fibers can be used to determine the exact position of the fragments to each other. Determining the position is the next logical step towards a fully automated helper. So, the final goal is to design a puzzle solver function by combining the DML model and a suitable method for position determination. 
+Further experiments will examine whether specific characteristics (fibers) can be exploited. Specifically, it will be tested if the fibers can be used to determine the exact position of the fragments to each other. Determining the position is the next logical step towards a fully automated helper. The final goal is to design a puzzle solver function by combining the DML model and a suitable method for position determination. 
 \\\\
 In summary, the thesis is divided into the following milestones:
 
 \begin{enumerate}[label=\bf{\Roman*.}]
 	\item Separating text and papyrus fibers by using state-of-the-art binarization \cite{Tensmeyer20} and inpainting \cite{Liu18Impainting}.
 	
-	\item Generating larger amounts of data through a GAN-based model and creating a base-line out of artificial torn fragments for evaluation.  \cite{Goodfellow14, Tamrin21}.
+	\item Generating larger amounts of data through a GAN-based model and creating a baseline out of artificial torn fragments for evaluation.  \cite{Goodfellow14, Tamrin21}.
 	
 	\item  Evaluation by means of a DML model using the original data in the original state (text and fibers), in the processed state (text only or fibers only). Also, an evaluation of the artificial data together with the original data in the original state and processed state.
 	
-	\item Review of the state of the art on the possibilities of using certain characteristics for position determination.      	      	      
+	\item Review of the state-of-the-art on the possibilities of using certain characteristics for position determination.      	      	      
 \end{enumerate}
-		
+
 The following research questions emerge from the milestones:
 
 \begin{questions}
-	\item Do the chosen metrics (mAP, top-1, pr@10, pr@100) differ significantly based on the binarization and inpainting methods used?
+	\item  Does the puzzle-helper-accuracy differ significantly based on the binarization and inpainting methods used for training?
 	
-	\item  Do the selected metrics (mAP, top-1, pr@10, pr@100) differ significantly when only the text or only the fibers are used as input as opposed to the unprocessed data?  
+	\item  Does the puzzle-helpers-accuracy differ significantly when only the text or only the fibers are used as input as opposed to the unprocessed data?  
 	
-	\item  Do the selected metrics (mAP, top-1, pr@10, pr@100) differ significantly when additional artificial data generated by a GAN are used for training?
+	\item  Does the puzzle-helpers-accuracy differ significantly when additional GAN-generated data is used for training?
 \end{questions}
 
 		
@@ -98,8 +82,8 @@ The implementation will be done in Python.\\
 	\\
 	\emph{Student:}     & Timo Bohnstedt
 	\\
-	\emph{Start:}       & November 8th, 2021                                            \\
-	\emph{End:}         & April 8th, 2022                                        \\
+	\emph{Start:}       & November 15th, 2021                                            \\
+	\emph{End:}         & April 15th, 2022                                        \\
 \end{tabular}
 \nopagebreak[4]
 \small
