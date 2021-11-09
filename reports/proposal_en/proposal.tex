@@ -57,7 +57,7 @@ First, training such a helper can not take advantage of a big data set of fragme
 Another constraint is to keep the number of false-negatives low. If the puzzle-helper selects a subset of potential candidates, all potentially matching fragments shall be included . If the perfect match is not enclosed in the subset, a papyrologist has no chance to identify the correct fragment unless he extends his search again to the entire data set. Thus the puzzle-helper is obsolete again. Another disadvantage is that the approach fails silently. The papyrologist might search long for a match because the expert is convinced that the algorithm works fine. However, if the ground truth match is not among the candidates of this subset, the search is senseless. Metrics that measure the accuracy in a helpful manner are the mean average precision (mAP), top-1, precision at 10 (pr@10) and at 100 (pr@100).
 The proposed metrics show how accurate the model is in general and how precise the model is within a particular range of potential candidates. In the next paragraphs, the different matrices are summarized as accuracy, for the sake of simplicity. The success of a model depends strongly on which part of the image is used for training the puzzle helper. More precisely, what is suggested to the model during training as equal and unequal determines the model's accuracy \cite{Pirrone21}. In this work, we will statistically measure how specific papyrus characteristics determine the accuracy of a DML model. For this purpose, various metrics of different models are compared by using only the foreground of a papyrus (text) or the background (fibers) as input for training. 
 
-Separating foreground and background is challenging because a fiber often has similar colors as the text. That circumstance makes thresholding more complicated. Several methods will be used and get evaluated on the overall accuracy. A separate evaluation is not straightforward and is misleading because we do not have pixel-wise ground truth \cite{Tensmeyer20}. Also, the focus of the thesis lies on the influence of specific characteristics and the influence of more data available instead of the separating process itself. For separating the text,  a method based on a color threshold will be used (binarization), which separates the text and generates a text mask. 
+Separating foreground and background is challenging because a fiber often has similar colors as the text. That circumstance makes thresholding more complicated. Several methods will be used and get evaluated on the overall accuracy. A separate evaluation is not straightforward and is misleading because we do not have pixel-wise ground truth \cite{Tensmeyer20}. Also, the focus of this thesis lies on the influence of specific characteristics and the power of more labeled data available instead of the separating process itself. For cutting out the text,  a method based on a color threshold will be used (binarization), which separates the text and generates a text mask. 
 The extracted areas can now be filled using an inpainting \cite{Ballester00} approach. The inpainting procedure is also just evaluated based on overall accuracy. 
 \\\\
 Finally, further experiments will examine whether specific characteristics (fibers) can be exploited in some way. Specifically, it will be tested if the fibers can be used to determine the exact position of the fragments to each other. Determining the position is the next logical step towards a fully automated helper. So, the final goal is to design a puzzle solver function by combining the DML model and a suitable method for position determination. 
@@ -93,11 +93,11 @@ The implementation will be done in Python.\\
 	\emph{Student:}     & Timo Bohnstedt
 	\\
 	\emph{Start:}       & November 8th, 2021                                            \\
-	\emph{End:}         & April oth, 2022                                        \\
+	\emph{End:}         & April 8th, 2022                                        \\
 \end{tabular}
 \nopagebreak[4]
 \small
-\bibliographystyle{IEEEtran}       %TODO change bibliographystyle
+\bibliographystyle{IEEEtran}
 \bibliography{proposal}
 		
 \end{document}
