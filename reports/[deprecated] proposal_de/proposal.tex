@@ -1,0 +1,113 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{german}
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage{xspace}
+\usepackage{microtype}
+%\usepackage{doublespace}
+%------------------------------------------------------------------------------
+%\setstretch{1.0}
+\voffset-5mm
+\hoffset-5mm
+\textwidth17cm
+\textheight24cm
+\headsep0mm
+\headheight0mm
+\oddsidemargin0.3mm
+\pagestyle{empty}
+\parindent0mm
+\parskip1ex
+%------------------------------------------------------------------------------
+%==============================================================================
+
+\providecommand{\etal}[1]{#1\emph{~et~al.\xspace}}
+\renewcommand\refname{References}
+
+%inset reserach questions
+\usepackage{enumitem}
+
+\newlist{questions}{enumerate}{2}
+\setlist[questions,1]{label=\bf{RQ\Roman*:},ref=RQ\Roman*}
+\setlist[questions,2]{label=(\alph*),ref=\thequestionsi(\alph*)}
+
+
+\begin{document}
+
+
+
+\begin{center}
+	Master's Thesis at the Pattern Recognition Lab, FAU Erlangen-Nuremberg \hfill \\[5mm]
+																				
+	\mbox{}\\
+	{\Large Determining the Influence of Papyrus Characteristics and Data Argumentation on Fragments Retrieval with Deep Metric Learning}
+			
+\end{center}
+%Body
+
+
+In der Praxis sind altertümliche Papyri in mehre Fragmente zerrissen. 
+Die Aufgabe von Papyrologen ist es, diese Fragmente zusammenzusetzen und zu entziffern. Zusammen mit Historikern können dadurch wichtige Ergebnisse über das Altertum gewonnen werden. Allerdings ist der Prozess des händischen Zusammensetzens sehr zeitaufwendig und schwierig, weil Fragmente sich in Farbe, Struktur und Form so sehr unterscheiden, dass sie nicht perfekt zueinander passen - wie bei einem entworfenen Puzzle. 
+\\\\
+In der folgenden Arbeit geht es darum, Papyrologen die Arbeit zu erleichtern, indem der Prozess des Zusammensetzens teilautomatisiert wird. 
+Hierfür wird ein Algorithmus entworfen, der zu einem Papyrus-Fragment eine kleinere Auswahl an mit hoher Wahrscheinlichkeit passenden Fragmenten vorschlägt. 
+Zusammengefasst wird dieser Algorithmus im Folgenden eine Puzzlehilfe-Funktion genannt.
+Mit solch einer Puzzlehilfe-Funktion kann die Effektivität und Effizienz beim Zusammensetzten von Fragmenten erhöht werden. 
+Allerdings muss eine Puzzlehilfe Funktion dabei mehre Bedingungen erfüllen.
+\\\\
+Zum einen darf das Erstellen einer solchen Funktion keine großen Datenmengen an zusammengesetzten Payri Fragmenten voraussetzen, denn es existieren weltweit nur wenige solcher Daten. Deep Metric Lerarning (DML) wurde bisher verwendet, um eine Puzzlehilfe-Funktion zu erstellen und erzielt dabei einen top-1 Genauigkeitsgrad von 0.73. Der Top-1 Genauigkeitsgrad ist die Treffergenauigkeit Puzzlehilfe-Funktion, wobei jeweils nur der Kandidat mit der höchsten Wahrscheinlichkeit berücksichtigt wird. 
+Wenn man das DML weiter verfeinern möchte, um eine sehr gute Genauigkeit zu erreichen, werden immens viele Daten benötigt. Andernfalls würde das Model sehr wahrscheinlich nicht konvergieren. Wenn die Fragmente händisch zusammensetzen werden, um somit einen großen Datensatz zu erhalten, wird der Zweck der Puzzlehilfe Funktion obsolet.
+Der Zeitaufwand für den Papyrologen bleibt im besten Fall derselbe oder wird im schlechtesten Fall erhöht. Generative-Advesarial-Networks (GANs) sind eine Möglichkeit, mehr künstliche Daten zu erzeugen.  Die Methode ist gut erforscht und funktioniert über verschiedene Domänen hinweg. Es wurde gezeigt, dass die Genauigkeit über verschiedene Anwendungsbereiche hinweg dadurch signifikant erhöht werden kann. In der Arbeit soll ebenfalls ein GAN verwendet werden, um die das Problem der zu wenigen Daten zu umgehen. 
+\\\\
+Eine andere Bedingung ist, das wenig falsch-negative gibt.
+In der Vorauswahl der Puzzlehilfe Funktion sollen möglichst alle potenziell passenden Fragmente enthalten sein. Ist das passende Fragment nicht in der Teilmenge enthalten, hat der Papyrologe keine Chance, das richtige Fragment zu identifizieren. Es sei denn er weitet seine Suche wieder auf den gesamten Datensatz aus. Somit wäre die Puzzlehilfe Funktion wieder obsolet. Eine weiterer Nachteil ist, dass er möglicherweise extrem lange nach dem passenden Fragment sucht, welches aber nicht zu finden ist. 
+Hierfür verwendete Metriken sind die mAP, top-1, pr@10, pr@100. Diese Metriken zeigen einerseits wie genau das Model im allgemeinen ist und wie präzise das Modell innerhalb eines bestimmten Bereichs ist. Im Folgenden wird vereinfacht nur über Genauigkeit gesprochen. Diese Genauigkeit hängt stark davon ab, welcher Bildausschnitt als Eingabe verwendet wird. Genauer, was dem Model beim Trainieren als gleich und ungleich suggeriert wird, determiniert die Genauigkeit des Modells. 
+In dieser Arbeit soll statistisch untersucht werden, wie bestimmte Papyruscharakteristiken die Genauigkeit eines solchen Models beeinflussen. Hierfür wird die Genauigkeit verschiedener Modelle verglichen, indem nur der Vordergrund eines Papyrus (Text) oder der Hintergrund (Fasern) als Eingabe zum trainieren verwendet werden. 
+Das Separieren von Text und Phasern ist ebenfalls eine Herausforderung, weil der Untergrund auf dem das Papyrus liegt oft die ähnliche Farben hat wie die Schrift auf dem Papyrus selbst. 
+Wir verwenden verschiedene Methoden und evaluieren diese an der Gesamtgenauigkeit. Eine separierte Evaluierung wäre ohne eine Pixel genaue Ground Truth nicht möglich. Außerdem liegt der Fokus dieser Arbeit auf dem Einfluss der Charakteristiken auf die Genauigkeit und nicht auf dem Separieren selbst. Für die Texterkennung verwenden wird ein Method verwendet die auf einem Threshold basiert (Binarization), welcher den Text herauslöst und eine Text-Maske generiert. TODO Satzbau verwenden wird..
+Die herausgelösten Stellen können nun mittels eines Inpainting-Verfahrens und der generierten Maske aufgefüllt werden. Auch das Inpainting-Verfahren wird nur anhand der Gesamtgenauigkeit evaluiert.
+\\\\
+Zuletzt wird untersucht, ob bestimmte Charakteristiken (Fasern) noch auf andere Weise verwendet werden können. Spezifisch wird untersucht ob durch die Fasern zusätzlich zu potenziellen Kandidaten auch die genaue Position der Fragmente zueinander bestimmt werden kann.
+Dies wäre der logische Schritt hin zu einer vollautomatisierten Funktion. Das finale Ziel ist es, durch die Kombination des DML-Modells und einer geeigneten Methode zur Positionsbestimmung, eine Puzzlelöser-Funktion zu entwerfen.
+
+Zusammenfassend gliedert sich die Arbeit in folgende Meilensteine:
+
+
+\begin{enumerate}
+	\item Separieren von Text und Papyrus-Fasern durch Binarization und Inpainting.
+	
+	\item Erzeugen von größeren Datenmengen durch ein GAN.
+	
+	\item Evaluierung mittels eines DML Models anhand der originalen Daten im originalen Zustand (Text und Fasern), im bearbeiteten Zustand (nur Text oder nur Fasern). Außerdem eine Evaluierung der künstlichen Daten zusammen mit den originalen Daten im originalen Zustand und bearbeiten Zustand.
+	
+	\item Review des State-of the Art über die Möglichkeiten, bestimmte Charakteristiken für die Positionsbestimmung zu verwenden. 
+	    	      	      	      	      	      	      
+\end{enumerate}
+		
+Aus den Meilensteinen ergeben sich die folgenden Forschungsfragen:
+%TODO Forschungsfragen dürfen nicht mit Ja oder Nein beantwortbar sein. Sind meistens sehr offen gestellt. Hypotesen dürfen so ähnlich klinken wie deine Forschungsfragen.
+
+\begin{questions}
+	\item Unterscheiden sich die gewählten Metriken (mAP, top-1, pr@10, pr@100) signifikant anhand der verwendeten Binarization und impainting Methoden?
+	
+	\item  Unterscheiden sich die gewählten Metriken (mAP, top-1, pr@10, pr@100) signifikant wenn nur der Text oder nur die Fasern als Eingabe verwendet werden im Gegensatz zu den unbearbeiteten Daten?  
+	\item  Unterscheiden sich die gewählten Metriken (mAP, top-1, pr@10, pr@100) signifikant, wenn zum trainieren zusätzlich künstliche Daten verwendet werden, welche durch ein GAN erzeugt wurden?
+\end{questions}
+
+		
+
+		
+\begin{tabular}{ll}
+	\emph{Supervisors:} & Dr.-Ing.~V.~Christlein,  Prof.~Dr.-Ing.~habil.~A.~Maier, Mathias Seuret M. Sc.
+	\\
+	\emph{Student:}     & Timo Bohnstedt
+	\\
+	\emph{Start:}       & November 8th, 2021                                            \\
+	\emph{End:}         & April oth, 2022                                        \\
+\end{tabular}
+\nopagebreak[4]
+\small
+\bibliographystyle{IEEEtran}       %TODO change bibliographystyle
+\bibliography{proposal}
+		
+\end{document}
+%==============================================================================
