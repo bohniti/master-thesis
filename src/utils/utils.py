@@ -1,27 +1,17 @@
 from pathlib import Path
 from PIL import Image
 import numpy as np
-import h5py
+from tabulate import tabulate
+import pandas as pd
 
 
 def get_info(raw_data_path, n=None):
-    # TODO you have to exectue it twice as long as h5 file is created -> fix
-    info_file = Path(raw_data_path + 'info_file.h5')
+    info_file = Path(raw_data_path + 'info_file.csv')
 
     if info_file.is_file():
         print(f'\nRead info from {str(info_file)} ...')
-
-        with h5py.File(str(info_file), "r") as f:
-
-            widths = np.array(f['widths']).flatten()
-            heights = np.array(f['heights']).flatten()
-            names = np.array(f['names']).flatten()
-            labels = np.array(f['labels']).flatten()
-        result = np.vstack((names, widths))
-        result = np.vstack((result, heights))
-        result = np.vstack((result, labels))
-        return result
-
+        info = pd.read_csv(raw_data_path + 'info_file.csv')
+        return info
 
     else:
         print(f'No info file found. Start collecting info from {raw_data_path} ...')
@@ -42,39 +32,56 @@ def get_info(raw_data_path, n=None):
             names.append(file_splits[0])
             labels.append(int(file_splits[1]))
 
-        heights = np.array(heights)
-        widths = np.array(widths)
+        info = pd.DataFrame()
+        info['names'] = names
+        info['widths'] = widths
+        info['heights'] = heights
+        info['labels'] = labels
+
+        print(f'Write info to info_file.csv')
+        info.to_csv(raw_data_path + 'info_file.csv')
+        return info
 
 
-        dt = h5py.string_dtype(encoding='utf-8')
-
-        with h5py.File(raw_data_path + 'info_file.h5', 'w') as h5f:
-            h5f.create_dataset('names', data=names, dtype=dt)
-            h5f.create_dataset('heights', data=heights)
-            h5f.create_dataset('widths', data=widths)
-            h5f.create_dataset('labels', data=labels)
-
-        print(f'Write info to info_file.h5')
-        get_info(raw_data_path=raw_data_path, n=n)
-
-
-def show_info(raw_data_path, overview=True):
+def show_info(raw_data_path, overview=True, file_names=None, n=None, rand=False):
     info = get_info(raw_data_path=raw_data_path)
     if overview:
-        nr_of_samples = info.shape[1]
-        nr_of_labels = np.unique(info[3]).shape[0]
-        max_width = info[2].max()
-        max_height = info[1].max()
-        median_width = np.median(info[2])
-        median_height = np.median(info[1])
-        mean_width = info[2].mean()
-        mean_height = info[1].mean()
+        nr_of_samples = info.shape[0]
+        nr_of_labels = str(info['labels'].value_counts())
+        max_width = info['widths'].max()
+        max_height = info['heights'].max()
+        median_width = info['widths'].median()
+        median_height = info['heights'].median()
+        mean_width = info['widths'].mean()
+        mean_height = info['heights'].mean()
         print(
-            f'\nDataset Overview:\n{  nr_of_samples = }\n{  nr_of_labels = }'
-            f'\n{  max_width = }\n{  max_height = }\n{  median_width = }\n{  median_height = }\n{  mean_width = }\n{  mean_height = }')
+            f'\n\033[1mDataset Overview\033[0m\n'
+            f'\n{  nr_of_samples = }'
+            f'\n{  nr_of_labels = }'
+            f'\n{  max_width = }'
+            f'\n{  max_height = }'
+            f'\n{  median_width = }'
+            f'\n{  median_height = }'
+            f'\n{  mean_width = }'
+            f'\n{  mean_height = }\n')
+
+    if file_names is not None:
+        subset_info = info[info['names'].isin(file_names)]
+
+        print(
+            f'\n\033[1mFile Info\033[0m\n\n' + tabulate(subset_info, headers='keys', tablefmt='github',
+                                                                        showindex=False))
+    elif n is not None and not rand:
+        subset_info = info.head(n)
+        print('\n\033[1mFile Info\033[0m\n\n' + tabulate(subset_info, headers='keys', tablefmt='github',
+                                                                         showindex=False))
+    elif n is not None and rand:
+        subset_info = info.sample(n)
+        print('\n\033[1mFile Info\033[0m\n\n' + tabulate(subset_info, headers='keys', tablefmt='github',
+                                                                         showindex=False))
 
 
-def show_imgs(**kwargs):
+def show_imgs(raw_data_path, all=False, file_names=None, n=None, rand=False, scale=None):
     pass
 
 
@@ -90,4 +97,5 @@ def create_patch(**kwargs):
     pass
 
 
-show_info(raw_data_path='/Users/beantown/PycharmProjects/master-thesis/data/raw/')
+show_info(raw_data_path='/Users/beantown/PycharmProjects/master-thesis/data/raw/', overview=True,
+          n=10)
