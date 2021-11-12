@@ -5,7 +5,20 @@ from tabulate import tabulate
 import pandas as pd
 
 
-def get_info(raw_data_path, n=None):
+def get_info_df(raw_data_path, n=None):
+    """
+    Function reads or creates a .csv file in given dir.
+    The file is for creating a pandas.DataFrame out of it.
+    The dataframe contains the name, width, height and the label of each image in a given dir.
+
+    Args
+        raw_data_path: absolut path to the raw data
+        n: use n if you want to create df just for first n! Not recommended!!!
+
+    Returns
+        pandas.DataFrame: info df can be used to read and write data and to calculate naive statistics.
+    """
+
     info_file = Path(raw_data_path + 'info_file.csv')
 
     if info_file.is_file():
@@ -44,7 +57,18 @@ def get_info(raw_data_path, n=None):
 
 
 def show_info(raw_data_path, overview=True, file_names=None, n=None, rand=False):
-    info = get_info(raw_data_path=raw_data_path)
+    """
+    Function uses the an project specific pandas df given by a info.csv file to print img or dataset information.
+    Note,Just use filenames or n and rand parameters. File_names creats a subset out of the specified files.
+
+    Args
+        raw_data_path: path to data (.csv file)
+        overview: if functions calculates and print naive statistics about the dataset
+        file_names: if function prints sample-specific information
+        n: prints n file-information strings
+        rand: if true n doesn't print the first but instead random sample-information
+    """
+    info = get_info_df(raw_data_path=raw_data_path)
     if overview:
         nr_of_samples = info.shape[0]
         nr_of_labels = str(info['labels'].value_counts())
