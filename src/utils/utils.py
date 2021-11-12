@@ -3,6 +3,8 @@ from PIL import Image
 import numpy as np
 from tabulate import tabulate
 import pandas as pd
+import cv2
+import matplotlib.pyplot as plt
 
 
 def get_info(raw_data_path, n=None):
@@ -70,23 +72,60 @@ def show_info(raw_data_path, overview=True, file_names=None, n=None, rand=False)
 
         print(
             f'\n\033[1mFile Info\033[0m\n\n' + tabulate(subset_info, headers='keys', tablefmt='github',
-                                                                        showindex=False))
+                                                        showindex=False))
     elif n is not None and not rand:
         subset_info = info.head(n)
         print('\n\033[1mFile Info\033[0m\n\n' + tabulate(subset_info, headers='keys', tablefmt='github',
-                                                                         showindex=False))
+                                                         showindex=False))
     elif n is not None and rand:
         subset_info = info.sample(n)
         print('\n\033[1mFile Info\033[0m\n\n' + tabulate(subset_info, headers='keys', tablefmt='github',
-                                                                         showindex=False))
+                                                         showindex=False))
 
 
-def show_imgs(raw_data_path, all=False, file_names=None, n=None, rand=False, scale=None):
-    pass
+def show_imgs(raw_data_path, all=False, file_names=None, n=None, rand=False, scaler=None, print_info=True,
+              print_overview=True):
+    # Load info file or create one
+    info = get_info(raw_data_path)
+
+    if print_info and print_overview:
+        show_info(raw_data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=True)
+
+    elif print_info and not print_overview:
+        show_info(raw_data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=False)
+
+    # Print all images
+    if all:
+       subset_info = info
+    # Print subset of images given by filenames
+    elif file_names is not None:
+        subset_info = info[info['names'].isin(file_names)]
+    # Print first n images
+    elif n is not None and not rand:
+        subset_info = info.head(n)
+    # Print n random images
+    elif n is not None and rand:
+        subset_info = info.sample(n)
+
+    for index, row in subset_info.iterrows():
+        name = row['names'] + '.' + str(row['labels']) + '.jpg'
+        show_img(raw_data_path=raw_data_path, name=name, label=row['labels'], scaler=scaler)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 
-def show_img(**kwargs):
-    pass
+def show_img(raw_data_path, name, label=0, scaler=None):
+    img = cv2.imread(raw_data_path + name, 1)
+    if scaler is None:
+        cv2.imshow(f'{name}\nOriginal Size\n{label = }', img)
+
+    else:
+        img_scaled = cv2.resize(img, (0, 0), fx=scaler, fy=scaler)
+        if scaler > 1:
+            title_string = f'{name}\nUpscaled by {(scaler - 1) * 100}%\n{label = }'
+        else:
+            title_string = f'{name}\nDownscaled by {(1 - scaler) * 100}%\n{label = }'
+        cv2.imshow(title_string, img_scaled)
 
 
 def create_patches(**kwargs):
@@ -97,5 +136,10 @@ def create_patch(**kwargs):
     pass
 
 
-show_info(raw_data_path='/Users/beantown/PycharmProjects/master-thesis/data/raw/', overview=True,
-          n=10)
+file_names = ['Bodleian-Library-MS-Gr-class-a-1-P-1-10_00001_frame-1',
+              'Bodleian-Library-MS-Gr-class-a-8-P_00001_section-1-recto']
+scaler = 0.25
+raw_data_path = '/Users/beantown/PycharmProjects/master-thesis/data/raw/'  #
+
+
+show_imgs(raw_data_path=raw_data_path, all=False, n=5, rand=False, scaler=scaler, print_info=True, print_overview=True)
