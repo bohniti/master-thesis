@@ -29,6 +29,7 @@ def show_images(raw_data_path, all=False, file_names=None, n=None, rand=False, s
             scaler:see show_images
         """
         img = cv2.imread(raw_data_path + name, 1)
+
         if scaler is None:
             cv2.imshow(f'{name}\nOriginal Size\n{label = }', img)
 
@@ -44,10 +45,10 @@ def show_images(raw_data_path, all=False, file_names=None, n=None, rand=False, s
     info = get_info_df(raw_data_path)
 
     if print_info and print_overview:
-        show_info(raw_data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=True)
+        show_info(data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=True)
 
     elif print_info and not print_overview:
-        show_info(raw_data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=False)
+        show_info(data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=False)
 
     # Print all images
     if all:
