@@ -1,20 +1,24 @@
+import matplotlib.pyplot as plt
+
 from src.data.io import get_info_df, show_info
+from src.data.utils import create_info_subset
 import cv2
 
 
-def show_images(raw_data_path, all=False, file_names=None, n=None, rand=False, scale=None, print_info=True,
-                print_overview=True):
+def show_images(raw_data_path, all=False, file_names=None, n=None, rand=False, scaler=None, print_info=True,
+                print_overview=True, matplot=True, label=None):
     """
     Functions print images with cv2.imshow.
     Note, matplotlib tends to not show full resolution, this is why it's usage is omitted here.
 
     Args:
+        matplot: ust matplotlib to print (lower resultion but works within jupyter notebook)
         raw_data_path: absolut path to the raw data
         all: show all images
         file_names: how subset determined by file names
         n: show first n images if rand is false; else shows random n images
         rand: see n
-        scale: determines the value by which you want to up- or downsclae the img before it is shown
+        scaler: determines the value by which you want to up- or downsclae the img before it is shown
         print_info: use project specific info file/ function to print info for each file
         print_overview: print general information about the whole dataset
     """
@@ -31,7 +35,12 @@ def show_images(raw_data_path, all=False, file_names=None, n=None, rand=False, s
         img = cv2.imread(raw_data_path + name, 1)
 
         if scaler is None:
-            cv2.imshow(f'{name}\nOriginal Size\n{label = }', img)
+            if matplot:
+                plt.title(f'{name}\nOriginal Size\n{label = }')
+                plt.imshow(img)
+                plt.show()
+            else:
+                cv2.imshow(f'{name}\nOriginal Size\n{label = }', img)
 
         else:
             img_scaled = cv2.resize(img, (0, 0), fx=scaler, fy=scaler)
@@ -39,35 +48,28 @@ def show_images(raw_data_path, all=False, file_names=None, n=None, rand=False, s
                 title_string = f'{name}\nUpscale by {(scaler - 1) * 100}%\n{label = }'
             else:
                 title_string = f'{name}\nDownscaled by {(1 - scaler) * 100}%\n{label = }'
-            cv2.imshow(title_string, img_scaled)
+            if matplot:
+                plt.figure()
+                plt.title(title_string)
+                plt.imshow(img_scaled)
+                plt.show()
+            else:
+                cv2.imshow(title_string, img_scaled)
 
     # Load info file or create one
-    info = get_info_df(raw_data_path)
+    info = get_info_df(raw_data_path, overwrite_info=False)
 
     if print_info and print_overview:
-        show_info(data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=True)
+        show_info(data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=True, label=label)
 
     elif print_info and not print_overview:
-        show_info(data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=False)
+        show_info(data_path=raw_data_path, file_names=file_names, n=n, rand=rand, overview=False, label=label)
 
     # Print all images
-    if all:
-        subset_info = info
-    # Print subset of images given by filenames
-    elif file_names is not None:
-        subset_info = info[info['names'].isin(file_names)]
-    # Print first n images
-    elif n is not None and not rand:
-        subset_info = info.head(n)
-    # Print n random images
-    elif n is not None and rand:
-        subset_info = info.sample(n)
+    subset_info = create_info_subset(info, all=all, file_names=file_names, rand=rand, label=label)
 
     for index, row in subset_info.iterrows():
         name = row['names'] + '.' + str(row['labels']) + '.jpg'
-        show_image(raw_data_path=raw_data_path, name=name, label=row['labels'], scaler=scale)
+        show_image(raw_data_path=raw_data_path, name=name, label=row['labels'], scaler=scaler)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
-
-
