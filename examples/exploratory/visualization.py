@@ -10,4 +10,4 @@ files = ['Bodleian-Library-MS-Gr-class-a-1-P-1-10_00001_frame-1',
 
 scale = 0.25
 
-show_images(raw_data_path=path, file_names=files, rand=False, scale=scale, print_info=True, print_overview=True)
+show_images(raw_data_path=path, file_names=files, rand=False, scaler=scale, print_info=True, print_overview=True)
