@@ -21,7 +21,7 @@
 % ++ es werden keine underfull hboxes als Fehler ausgegeben,
 %    da das ja nur heiﬂt, dass die Seite noch nicht ganz voll ist
 \hbadness=10000
-
+\usepackage[hidelinks]{hyperref}
 
 
 \includeonly{mt01, mt02, mt03, mt04, mt05, mt06, mt07, mt08, mt09, mt10, mt11, mt-lit, mt-lof, mt-lot}
@@ -65,61 +65,57 @@ Erlangen, den \selectlanguage{german} \today \hspace{6.0cm} \\[10mm]
 
 \cleardoublepage
 
+\chapter*{\centering Zusammenfassung}
+\addcontentsline{toc}{chapter}{Zusammenfassung}
 \begin{center}
-\bfseries
-"Ubersicht
-
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu
-\normalfont
+	\bfseries
+	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu.
+	\normalfont
 \end{center}
+
+
 
 
 \vspace{5.0cm}
 
+\chapter*{\centering Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
 \begin{center}
 \bfseries
-Abstract
-
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu.
 \normalfont
 \end{center}
+
 
 \cleardoublepage
 
 \tableofcontents
 
+\include{mt-lof} % List of Figures
+\cleardoublepage
+\include{mt-lot} % List of Tabels
+
 \cleardoublepage \pagenumbering{arabic}
 
-\include{mt01}   % Einfuehrung (\chapter{Einf"uhrung})
+\include{mt01}   % Introductions
 \cleardoublepage
-\include{mt02}   % (\chapter{})
+\include{mt02}   % State of the Art
 \cleardoublepage
-\include{mt03}   % (\chapter{})
+\include{mt03}   % Algorithms as Puzzle Helper 
 \cleardoublepage
-\include{mt04}   % (\chapter{})
+\include{mt04}   % Separating Text and Papyrus Fibers 
 \cleardoublepage
-\include{mt05}   % (\chapter{})
+\include{mt05}   % Generating Histrical Documentns
 \cleardoublepage
-\include{mt06}   % (\chapter{})
+\include{mt06}   % Exploiting Papyrus Fibers
 \cleardoublepage
-\include{mt07}   % Ausblick (\chapter{Ausblick} TEXT)
+\include{mt07}   % Discussion
 \cleardoublepage
-\include{mt08}   % Zusammenfassung (\chapter{Zusammenfassung}  TEXT)
+\include{mt08}   % Conclusion
 \cleardoublepage
-
+\include{mt-lit} % Bibliography
 \appendix
 \cleardoublepage
-\include{mt09}   % Glossar (\chapter{Glossar}  TEXT)
-\cleardoublepage
-\include{mt10}   % 
-\cleardoublepage
-\include{mt11}   % 
-\cleardoublepage
-
-\include{mt-lof} % Bilderverzeichnis
-\cleardoublepage
-\include{mt-lot} % Tabellenverzeichnis
-\cleardoublepage
-\include{mt-lit} % Literaturverzeichnis
-
+\include{mt09}   % Appendix
 \end{document}
