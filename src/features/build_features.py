@@ -83,7 +83,7 @@ def create_patches_from_imgs(input_path, output_path, all=False, names=None, pat
 
     for name in names:
         create_patches_from_img(input=input_path, name=name, output_path=full_processed_data_path,
-                                patch_size=patch_size, n=n)
+                                patch_size=patch_size, n=n,gradient=gradients)
     _ = show_info(data_path=full_processed_data_path, overwrite_info=True, overview=False)
 
 

@@ -1,13 +1,12 @@
-"""
-@file laplace_demo.py
-@brief Sample code showing how to detect edges using the Laplace operator
-@author: cv2 tutorial https://docs.opencv.org/3.4/d5/db5/tutorial_laplace_operator.html
-"""
-import sys
 import cv2 as cv
 
 
-def laplace(argv):
+def laplace(path):
+    """
+    @file laplace_demo.py
+    @brief Sample code showing how to detect edges using the Laplace operator
+    @author: cv2 tutorial https://docs.opencv.org/3.4/d5/db5/tutorial_laplace_operator.html
+    """
     # [variables]
     # Declare the variables we are going to use
     ddepth = cv.CV_16S
@@ -15,8 +14,8 @@ def laplace(argv):
     window_name = "Laplace Demo"
     # [variables]
     # [load]
-    imageName = argv[0] if len(argv) > 0 else 'lena.jpg'
-    src = cv.imread(cv.samples.findFile(imageName), cv.IMREAD_COLOR)  # Load an image
+    #imageName = argv[0] if len(argv) > 0 else 'lena.jpg'
+    src = cv.imread(path, cv.IMREAD_COLOR)  # Load an image
     # Check if image is loaded fine
     if src is None:
         print('Error opening image')
@@ -40,9 +39,5 @@ def laplace(argv):
     # [convert]
     # converting back to uint8
     abs_dst = cv.convertScaleAbs(dst)
-    # [convert]
-    # [display]
-    cv.imshow(window_name, abs_dst)
-    cv.waitKey(0)
-    # [display]
-    return 0
+
+    return abs_dst
