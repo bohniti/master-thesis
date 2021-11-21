@@ -1,21 +1,29 @@
 \chapter{State of the Art}
 
-In this chapter, we present an overview of the state-of-the art for this thesis. The common research field is computer vision and pattern recognition for cultural heritage. State-of-the-art presents the results of recent publications. Since numbers alone are not meaningful, the methods and exact context are also discussed. This includes approaches based on deep unsupervised metric learning, graph theory and data argumentation. 
+In this chapter, we present an overview of the state-of-the art for this thesis. The common research field is computer vision and pattern recognition for cultural heritage. State-of-the-art presents the results of recent publications. Since numbers alone are not meaningful, the methods and exact contexts are also discussed. This includes approaches based on deep unsupervised metric learning, graph theory and data argumentation. Table \ref{tab:state-of-the-art} summarizes the key results and characteristics. 
 
-Puzzling and information retrieval from historical documents is becoming increasingly popular in the computer vision community. The applications, challenges and projects focus on different areas. Table X summarizes the state-of-the-art research among certain Tasks.
+\begin{table}
+	\label{tab:state-of-the-art}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+			\hline
+			\textbf{Task} & \textbf{Publication} & \textbf{Year} & \textbf{Method} & \textbf{Dataset} & \textbf{Public} & \textbf{Train Data} & \textbf{Val Data} & \textbf{Test Data} & \textbf{Metric} & \textbf{Result} \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep metric learning\\  for ancient papyrus\\ fragments retrieval\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep metric\\ learning\end{tabular} & Michigan & yes & 800 papyri & 100 papyri & 100 papyri & \begin{tabular}[c]{@{}l@{}}Top-1\\ Accuracy\end{tabular} & 0.73 \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Self-supervised deep\\ metric learning for\\ ancient papyrus\\ fragments retrieval\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep\\ metric\\ learning\end{tabular} & Hisfrag & yes & 9000 papyri & 1000 papyri & 100 papyri & \begin{tabular}[c]{@{}l@{}}Top-1\\ Accuracy\end{tabular} & 0.87 \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Papy-S-Net: A \\ Siamese Network\\ to match \\ papyrus fragments\end{tabular} & 2019 & \begin{tabular}[c]{@{}l@{}}Siamese\\ Network\end{tabular} & B500 & no & 8500 patches & 2000 patches & \begin{tabular}[c]{@{}l@{}}1000 patches\\ (~50 fragments)\end{tabular} & \begin{tabular}[c]{@{}l@{}}True Pos. /\\ Accuracy\end{tabular} & 0,79 \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Position\\ Estimation\end{tabular} & \begin{tabular}[c]{@{}l@{}}Using Graph Neural\\ Networks to Reconstruct\\ Ancient Documents\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Graph\\ Neural\\ Networks\end{tabular} & \begin{tabular}[c]{@{}l@{}}B500\\ (subset)\end{tabular} & no & 3394 imgs & 500 images & 200 images & Accuracy & 0.85 \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Data\\ Argumen-\\ tation\end{tabular} & \begin{tabular}[c]{@{}l@{}}Data Augmentation\\ Generative Adversarial\\ Networks\end{tabular} & 2018 & \begin{tabular}[c]{@{}l@{}}Generative\\ Advesarial\\ Networks\end{tabular} & EMNIST & yes & - & - & - & Accuracy & +0.13 \\ \hline
+	\end{tabular}}
+\caption{The table summarizes the state-of-the-art publications for this thesis. In addition to the results and metrics used, other features are also presented. }
+\end{table}
 
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
-	\hline
-	\textbf{Task} & \textbf{Publication} & \textbf{Year} & \textbf{Method} & \textbf{Dataset} & \textbf{Public} & \textbf{Train Data} & \textbf{Val Data} & \textbf{Test Data} & \textbf{Metric} & \textbf{Result} \\ \hline
-	\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep metric learning\\  for ancient papyrus\\ fragments retrieval\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep metric\\ learning\end{tabular} & Michigan & yes & 800 papyri & 100 papyri & 100 papyri & \begin{tabular}[c]{@{}l@{}}Top-1\\ Accuracy\end{tabular} & 0.73 \\ \hline
-	\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Self-supervised deep\\ metric learning for\\ ancient papyrus\\ fragments retrieval\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep\\ metric\\ learning\end{tabular} & Hisfrag & yes & 9000 papyri & 1000 papyri & 100 papyri & \begin{tabular}[c]{@{}l@{}}Top-1\\ Accuracy\end{tabular} & 0.87 \\ \hline
-	\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Papy-S-Net: A \\ Siamese Network\\ to match \\ papyrus fragments\end{tabular} & 2019 & \begin{tabular}[c]{@{}l@{}}Siamese\\ Network\end{tabular} & B500 & no & 8500 patches & 2000 patches & \begin{tabular}[c]{@{}l@{}}1000 patches\\ (~50 fragments)\end{tabular} & \begin{tabular}[c]{@{}l@{}}True Pos. /\\ Accuracy\end{tabular} & 0,79 \\ \hline
-	\begin{tabular}[c]{@{}l@{}}Position\\ Estimation\end{tabular} & \begin{tabular}[c]{@{}l@{}}Using Graph Neural\\ Networks to Reconstruct\\ Ancient Documents\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Graph\\ Neural\\ Networks\end{tabular} & \begin{tabular}[c]{@{}l@{}}B500\\ (subset)\end{tabular} & no & 3394 imgs & 500 images & 200 images & Accuracy & 0.85 \\ \hline
-	\begin{tabular}[c]{@{}l@{}}Data\\ Argumen-\\ tation\end{tabular} & \begin{tabular}[c]{@{}l@{}}Data Augmentation\\ Generative Adversarial\\ Networks\end{tabular} & 2018 & \begin{tabular}[c]{@{}l@{}}Generative\\ Advesarial\\ Networks\end{tabular} & EMNIST & yes & - & - & - & Accuracy & +0.13 \\ \hline
-\end{tabular}}
 
 \section{Deep Metric Learning}
-As indicated in the introduction, DML is a comparison-based algorithm and is therefore well suited for a field in which there is little ground truth. Pirone and his colleagues were the first who used DML in domain of papyri fragment retrieval. In their 2019 paper "Papy-S-Net : A Siamese Network to match papyrus fragments", they presented a so-called Siamese network that was able to correctly match 79\% of the papyri fragments. In 2021, they further improved their approach. A dataset under a public domain was generated to better evaluate their results. Through certain experiments with different models and preprocessing steps, a top-1 accuracy of 0.73\% was achieved. Because the authors communicated clearly what data was used, how it was prepared, and what metrics were used, the results from 2021 are much more reliable.
+As indicated in the introduction, DML is a comparison-based algorithm and is therefore well suited for a field in which there is little ground truth. Pirone and his colleagues were the first who used DML in domain of papyri fragment retrieval. In their 2019 paper \dq Papy-S-Net : A Siamese Network to match papyrus fragments\dq, they presented a so-called Siamese network that was able to correctly match 79\% of the papyri fragments. In 2021, they further improved their approach. A dataset under a public domain was generated to better evaluate their results. Through certain experiments with different models and preprocessing steps, a top-1 accuracy of 0.73\% was achieved. Because the authors communicated clearly what data was used, how it was prepared, and what metrics were used, the results from 2021 are much more reliable.
 
+\section{Graph Neural Networks}
+even nice results it seems that it is supervised on artificial data was just. 
+
+\section{Data Augmentation}
+Until now there is no specific paper about that topic. But its suggested by prirone et al to do it.
 
