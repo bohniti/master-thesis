@@ -1,7 +1,7 @@
 import cv2 as cv
+import numpy as np
 
-
-def laplace(path):
+def laplace(img):
     """
     @file laplace_demo.py
     @brief Sample code showing how to detect edges using the Laplace operator
@@ -12,19 +12,19 @@ def laplace(path):
     ddepth = cv.CV_16S
     kernel_size = 3
     window_name = "Laplace Demo"
-    # [variables]
-    # [load]
-    #imageName = argv[0] if len(argv) > 0 else 'lena.jpg'
-    src = cv.imread(path, cv.IMREAD_COLOR)  # Load an image
+
+
+
     # Check if image is loaded fine
-    if src is None:
+    if img is None:
         print('Error opening image')
         print('Program Arguments: [image_name -- default lena.jpg]')
         return -1
     # [load]
     # [reduce_noise]
     # Remove noise by blurring with a Gaussian filter
-    src = cv.GaussianBlur(src, (3, 3), 0)
+    print(type(img))
+    src = cv.GaussianBlur(img, (3, 3), 0)
     # [reduce_noise]
     # [convert_to_gray]
     # Convert the image to grayscale

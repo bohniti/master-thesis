@@ -1,10 +1,13 @@
-from src.data.io import get_info_df, show_info
+from src.data.io import show_info
+from src.data.utils import create_info_subset
+from src.features.externals.laplace import laplace
 import cv2
 import numpy as np
 from pathlib import Path
 
 
-def create_patches_from_imgs(input_path, output_path, all=False, names=None, patch_size=None, n=None, gradients=True):
+def create_patches_from_imgs(input_path, output_path, all=False, names=None, patch_size=None, n=None, gradients=True,
+                             laplacian=False):
     """
     Function creates a set of patches for given images.
 
@@ -18,7 +21,7 @@ def create_patches_from_imgs(input_path, output_path, all=False, names=None, pat
         gradients: if true compute and save edges in y and x direction
     """
 
-    def create_patches_from_img(input, name, output_path, patch_size=None, n=None, gradient=True):
+    def create_patches_from_img(input, name, output_path, patch_size=None, n=None, gradient=True, laplacian=False):
         """
         Built-in function which splits an image first along x than along y axsis
 
@@ -54,6 +57,10 @@ def create_patches_from_imgs(input_path, output_path, all=False, names=None, pat
                     edges_y = cv2.filter2D(img, cv2.CV_8U, kernely)
                     cv2.imwrite(output_path + name + '_edges_x.' + str(label) + '.jpg', edges_x)
                     cv2.imwrite(output_path + name + '_edges_y.' + str(label) + '.jpg', edges_y)
+            elif laplacian:
+                for label, img in enumerate(imgs):
+                    laplace_img = laplace(img)
+                    cv2.imwrite(output_path + name + '.' + str(label) + '.jpg', laplace_img)
             else:
                 for label, img in enumerate(imgs):
                     cv2.imwrite(output_path + name + '.' + str(label) + '.jpg', img)
@@ -70,20 +77,27 @@ def create_patches_from_imgs(input_path, output_path, all=False, names=None, pat
     if gradients:
         full_processed_data_path = output_path + f'/{int(n * 2)}_gradient_patches/'
         Path(full_processed_data_path).mkdir(parents=True, exist_ok=True)
+    elif laplacian:
+        full_processed_data_path = output_path + f'/{int(n * 2)}_laplace_patches/'
+        Path(full_processed_data_path).mkdir(parents=True, exist_ok=True)
     else:
         full_processed_data_path = output_path + f'/{int(n * 2)}_patches/'
         Path(full_processed_data_path).mkdir(parents=True, exist_ok=True)
 
     n = n / 2
 
-    if all or names is None:
+    if all:
         info = show_info(input_path, overview=False)
         names = info.names.tolist()
         print(names)
+    elif names is not None:
+        info = show_info(input_path, overview=False)
+        subset_info = create_info_subset(info, all=False, file_names=names, rand=False)
+        names = subset_info.names.tolist()
 
     for name in names:
         create_patches_from_img(input=input_path, name=name, output_path=full_processed_data_path,
-                                patch_size=patch_size, n=n,gradient=gradients)
+                                patch_size=patch_size, n=n, gradient=gradients, laplacian=laplacian)
     _ = show_info(data_path=full_processed_data_path, overwrite_info=True, overview=False)
 
 
