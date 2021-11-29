@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
-from src.data.io import get_info_df, show_info
-from src.data.utils import create_info_subset
+from archiv.io import get_info_df, show_info
+from archiv.utils import create_info_subset
 import cv2
 
 

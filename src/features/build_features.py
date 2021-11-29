@@ -1,5 +1,5 @@
-from src.data.io import show_info
-from src.data.utils import create_info_subset
+from archiv.io import show_info
+from archiv.utils import create_info_subset
 from src.features.externals.laplace import laplace
 import cv2
 import numpy as np
