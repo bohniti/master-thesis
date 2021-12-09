@@ -25,12 +25,25 @@
 \usepackage{graphicx}
 \usepackage[table,xcdraw]{xcolor}
 
+%inset reserach questions
+\usepackage{enumitem}
+
+\newlist{questions}{enumerate}{2}
+\setlist[questions,1]{label=\bf{RQ\Roman*:},ref=RQ\Roman*}
+\setlist[questions,2]{label=(\alph*),ref=\thequestionsi(\alph*)}
+
 \includeonly{mt01, mt02, mt03, mt04, mt05, mt06, mt07, mt08, mt09, mt10, mt11, mt-lit, mt-lof, mt-lot}
 
 \pagenumbering{roman}
 
 %\bibliographystyle{galpha1a} %german bibliography
 \bibliographystyle{alphamod} %english bibliography
+
+%Path relative to the main .tex file 
+\graphicspath{ {./figures/} }
+
+% gives the width of the current document in pts
+\showthe\textwidth
 
 \begin{document}
 \clearpage
