@@ -1,0 +1,30 @@
+\chapter{State of the Art}
+\label{chap:stateArt}
+This chapter summarizes state-of-the-art publications in the fields of fragment retrieval, historical document image binarization, and impainting. Fragment retrieval is the main objective of this thesis, whereas binarization and impainting are used to determine the influence of specific document characteristics on the retrieval approach. 
+
+\begin{table}
+	\label{tab:state-of-the-art}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
+			\hline
+			\textbf{Task} & \textbf{Publication} & \textbf{Year} & \textbf{Method} & \textbf{Dataset} & \textbf{Public} & \textbf{Train Data} & \textbf{Val Data} & \textbf{Test Data} & \textbf{Metric} & \textbf{Result} \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep metric learning\\  for ancient papyrus\\ fragments retrieval\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep metric\\ learning\end{tabular} & Michigan & yes & 800 papyri & 100 papyri & 100 papyri & \begin{tabular}[c]{@{}l@{}}Top-1\\ Accuracy\end{tabular} & 0.73 \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Self-supervised deep\\ metric learning for\\ ancient papyrus\\ fragments retrieval\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Self-supervised\\ deep\\ metric\\ learning\end{tabular} & Hisfrag & yes & 9000 papyri & 1000 papyri & 100 papyri & \begin{tabular}[c]{@{}l@{}}Top-1\\ Accuracy\end{tabular} & 0.87 \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Fragment\\ Retrieval\end{tabular} & \begin{tabular}[c]{@{}l@{}}Papy-S-Net: A \\ Siamese Network\\ to match \\ papyrus fragments\end{tabular} & 2019 & \begin{tabular}[c]{@{}l@{}}Siamese\\ Network\end{tabular} & B500 & no & 8500 patches & 2000 patches & \begin{tabular}[c]{@{}l@{}}1000 patches\\ (~50 fragments)\end{tabular} & \begin{tabular}[c]{@{}l@{}}True Pos. /\\ Accuracy\end{tabular} & 0,79 \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Position\\ Estimation\end{tabular} & \begin{tabular}[c]{@{}l@{}}Using Graph Neural\\ Networks to Reconstruct\\ Ancient Documents\end{tabular} & 2021 & \begin{tabular}[c]{@{}l@{}}Graph\\ Neural\\ Networks\end{tabular} & \begin{tabular}[c]{@{}l@{}}B500\\ (subset)\end{tabular} & no & 3394 imgs & 500 images & 200 images & Accuracy & 0.85 \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Data\\ Argumen-\\ tation\end{tabular} & \begin{tabular}[c]{@{}l@{}}Data Augmentation\\ Generative Adversarial\\ Networks\end{tabular} & 2018 & \begin{tabular}[c]{@{}l@{}}Generative\\ Advesarial\\ Networks\end{tabular} & EMNIST & yes & - & - & - & Accuracy & +0.13 \\ \hline
+	\end{tabular}}
+\caption{The table summarizes the state-of-the-art publications for this thesis. In addition to the results and metrics used, other features are also presented. }
+\end{table}
+
+
+Antoine Pirrone, Marie Beurton Aimar, Nicholas Journet are convinced that semi-automatic fragment retrieval is necessary to help papyrologists. Otherwise, they must review many fragments manually to find those that go together and then assemble them to analyze the text finally, as well. That is why they provide a solution where an expert uses a fragment as a request element and get fragments that belong to the same papyrus (puzzle helper). Their main contribution is the proposal of deep siamese network architecture, called Papy-S-Net for Papyrus-Siamese-Network, designed for papyri fragment matching. Their network was trained and validated on around 500 papyrus fragments. Since no one had approached historical fragment retrieval with a siamese network before they compared their results with the paper of Koch et al., He uses the approach within another domain. To train and validate the network, they created fragments semi-artificially. Precisely, they divided the papyri images where why could find natural fragments. Papy-S-Net outperforms Koch et al.s network. On their assembled ground truth, why could re-able 79\% of the fragments correct. 
+
+In their follow-up work, the authors explored more ways such that papyrologists can obtain valuable matching suggestions on new data using Deep Convolutional Siamese-Networks. This time they focused on the low data regime, and they claimed that less labeled data is available to train sophisticated deep learning models. However, they proved that the from-scratch self-supervised approach is more effective than knowledge transfer from a large dataset. Furthermore, the paper is more precise in the evaluation section, and they planned to offer a publicly available dataset. Unfortunately, that never happened until now. 
+
+The work of Pirrone and his colleagues is used for comparison within this thesis. Building on top of their work, it determines how specific image characteristics determine the success of deep metric learning on historical fragment retrieval. 
+
+The review paper of Tensmeyer and Martinez provides a detailed view of the field of historical document image binarization. Therefore the authors focus on the contributions made in the last decade. They explain how the Document Image Binarization Contest and the corresponding standard benchmark dataset raised interest in that particular research field. The paper provides an overview of the standard image thresholding, preprocessing, and post-processing methods. Furthermore, the writers review the literature on statistical models, pixel classification with learning algorithms, and parameter tuning methods. In addition to reviewing binarization algorithms, they debate available public datasets and evaluation metrics. They suggest separating metrics onto whether they require pixel-level ground truth or not. Finally, they offer guidance for future work. 
+
+
+

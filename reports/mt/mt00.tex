@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Masterarbeit Timo Bohnstedt 12.01.2021
+%  "Determining the Influence of Papyrus Characteristics and Data Augmentation on Fragments Retrieval with Deep Metric Learning"
+%  Lehrstuhl fuer Mustererkennung, FAU Erlangen-Nuernberg
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ++ LME LateX Dokument 
+%    Die Verwendung der option "german" bindet german.sty ein.
+%    For english papers, use the "english" option and talk to your advisor.
+%\documentclass[german,mt]{lmedoc}
+\documentclass[english,mt]{lmedoc}
+
+% ++ Umlaut Unterstuetzung
+%    Paket "inputenc" kann verwendet werden, um z.B. Umlaute oder das scharfe S
+%    direkt (als Nicht-ASCII-Zeichen) einzubinden. Dabei auf die korrekte
+%    Kodiermethode achten (z.B. Linux: latin1)! 
+\usepackage[latin1]{inputenc}
+
+% ++ es werden keine underfull hboxes als Fehler ausgegeben,
+%    da das ja nur heißt, dass die Seite noch nicht ganz voll ist
+\hbadness=10000
+
+
+
+\includeonly{mt01, mt02, mt03, mt04, mt05, mt06, mt07, mt08, mt09, mt10, mt11, mt-lit, mt-lof, mt-lot}
+
+
+% ++ Packages for research questions environemnt
+\usepackage{enumitem}
+\newlist{questions}{enumerate}{2}
+\setlist[questions,1]{label=\bf{RQ\Roman*:},ref=RQ\Roman*}
+\setlist[questions,2]{label=(\alph*),ref=\thequestionsi(\alph*)}
+
+\pagenumbering{roman}
+
+%\bibliographystyle{galpha1a} %german bibliography
+\bibliographystyle{alphamod} %english bibliography
+
+\begin{document}
+\clearpage
+  \begin{deckblatt}
+    \Titel{Determining the Influence of Papyrus Characteristics and Data Augmentation on Fragments Retrieval with Deep Metric Learning}
+    \Name{Bohnstedt}
+    \Vorname{Timo}
+    \Geburtsort{Gunzenhausen}
+    \Geburtsdatum{17.02.1992}
+    \Betreuer{Mathias Seuret M. Sc.,Dr.-Ing. Vincent Christlein}
+    \Start{15.12.2021}
+    \Ende{15.06.2022}
+  \end{deckblatt}
+
+
+\cleardoublepage
+
+
+Ich versichere, dass ich die Arbeit ohne fremde Hilfe und ohne Benutzung
+anderer als der angegebenen Quellen angefertigt habe und dass die Arbeit
+in gleicher oder "ahnlicher Form noch keiner anderen Pr"ufungsbeh"orde
+vorgelegen hat und von dieser als Teil einer Pr"ufungsleistung
+angenommen wurde. Alle Ausf"uhrungen, die w"ortlich oder sinngem"a"s
+"ubernommen wurden, sind als solche gekennzeichnet.
+\\
+
+Die Richtlinien des Lehrstuhls f"ur Studien- und Diplomarbeiten
+habe ich gelesen und anerkannt, insbesondere die Regelung des
+Nutzungsrechts. \\[15mm]
+Erlangen, den \selectlanguage{german} \today \hspace{6.0cm} \\[10mm]
+
+\selectlanguage{english} %remove this line for german style
+
+\cleardoublepage
+
+\begin{center}
+\bfseries
+"Ubersicht
+
+Antike Papyri sind häufig in mehrere Fragmente zerrissen, und die Aufgabe der Papyrologen besteht darin, diese Fragmente zusammenzusetzen und zu entziffern. Einmal erfolgreich rekonstruiert, bietet antikes Papyrus die Möglichkeit, wichtige Informationen über vergangene Zeiten zu sammeln. Das Zusammensetzen von Hand ist jedoch zeitaufwändig, da sich die Fragmente in Farbe, Struktur und Form unterscheiden. Mit anderen Worten: Sie passen nicht perfekt zusammen
+- wie ein künstlich hergestelltes Spielzeugpuzzle. Ein Algorithmus, der eine Auswahl von passenden Fragmenten zu weiteren Fragmenten vorschlägt, spart Papyrologen viel Zeit. Hierfür wurde bereits in der Vergangenheit gezeigt, dass tiefes metrisches Lernen ein vielversprechender Ansatz ist \cite{Pirrone21} In der nachfolgenden Arbeit wird gezeigt, wie ein Algorithmus mit einer mean average percesion (mAP) von 70\% geeignete Kandidaten findet. Es konnte außerdem gezeigt werden, dass der Algorithmus sich hauptsächlich an der Struktur der Papyrus Fasern orientiert und der Text vorerst  irrelevant ist. Hierfür wurden Text und Fasern mittels Binarisierung separiert. Der mAP ändert sich  nicht signifikant, wenn man die Textinformation herausfiltert und nur mit den Fasern arbeiten. Des Weiteren konnte gezeigt werden, wie Papyrus Fasern erweitert werden können, um eine geometrische Zuordnung möglicherweise passender Fragmente zu erreichen. Die Genauigkeit ist dabei mit der von Graph Algorithmen vergleichbar benötigt allerdings weniger Trainingsdaten. 
+\normalfont
+\end{center}
+
+
+\vspace{5.0cm}
+\cleardoublepage
+
+
+\begin{center}
+\bfseries
+Abstract
+
+Ancient papyri are frequently torn into several fragments, and the task of papyrologists is to assemble and decipher these fragments. Once successfully reconstructed, ancient papyrus offers the opportunity to gather crucial information about past times. However, reassembling by hand is time-consuming because fragments differ in color, structure, and shape. In other words, they do not fit together perfectly - like an artificially designed toy puzzle.
+An algorithm that suggests a selection of matching fragments to on specific fragment saves papyrologists a time. For this, it has been shown in the past that deep metric learning is a promising approach \cite{Pirrone21}. In the following thesis it is shown how an algorithm with a mean average precision (mAP) of 70\% finds suitable matching candidates. It was also shown that the algorithm is mainly guided by the structure of the papyrus fibers and the text is irrelevant for that approach. For this purpose, text and fibers were separated using binarization. The mAP does not change significantly if the textual information was filtered out. Furthermore, it is shown how Papyrus fibers can be extended to achieve geometric matching of possibly matching fragments. The accuracy is comparable to that of graph algorithms but requires less training data. 
+\normalfont
+\end{center}
+
+\cleardoublepage
+
+\tableofcontents
+
+\cleardoublepage \pagenumbering{arabic}
+
+\include{mt01}   % Einfuehrung (\chapter{Einf"uhrung})
+\cleardoublepage
+\include{mt02}   % (\chapter{})
+\cleardoublepage
+\include{mt03}   % (\chapter{})
+\cleardoublepage
+\include{mt04}   % (\chapter{})
+\cleardoublepage
+\include{mt05}   % (\chapter{})
+\cleardoublepage
+\include{mt06}   % (\chapter{})
+\cleardoublepage
+\include{mt07}   % Ausblick (\chapter{Ausblick} TEXT)
+\cleardoublepage
+\include{mt08}   % Zusammenfassung (\chapter{Zusammenfassung}  TEXT)
+\cleardoublepage
+
+\appendix
+\cleardoublepage
+\include{mt09}   % Glossar (\chapter{Glossar}  TEXT)
+\cleardoublepage
+\include{mt10}   % 
+\cleardoublepage
+\include{mt11}   % 
+\cleardoublepage
+
+\include{mt-lof} % Bilderverzeichnis
+\cleardoublepage
+\include{mt-lot} % Tabellenverzeichnis
+\cleardoublepage
+\include{mt-lit} % Literaturverzeichnis
+
+\end{document}
