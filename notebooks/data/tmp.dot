@@ -1,0 +1,17 @@
+digraph {
+	graph [size="12,12"]
+	node [align=left fontsize=12 height=0.2 ranksep=0.1 shape=box style=filled]
+	140513884826784 [label=MulBackward0 fillcolor=white]
+	140513348494672 -> 140513884826784
+	140513348494672 [label=SumBackward0 fillcolor=white]
+	140513348494960 -> 140513348494672
+	140513348494960 [label=DivBackward0 fillcolor=red]
+	140513483899584 -> 140513348494960
+	140513348494384 -> 140513348494960
+	140513348494384 [label=MulBackward0 fillcolor=red]
+	140513483875168 -> 140513348494384
+	140513483875168 [label="Variable
+ (10, 10)" fillcolor=lightblue]
+	140513483899584 [label="Variable
+ (10, 10)" fillcolor=lightblue]
+}
